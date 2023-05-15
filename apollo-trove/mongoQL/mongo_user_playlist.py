@@ -9,7 +9,6 @@ PyMongo Introduction
 https://pymongo.readthedocs.io/en/stable/tutorial.html
 
 Class: MDBUserPlaylistCollection
-
 """
 
 class MDBUserPlaylistCollection(object):
@@ -37,15 +36,17 @@ class MDBUserPlaylistCollection(object):
 
     # # ------------------------ #
     # # USER PLAYLIST
-    # # Methods for interacting with user profiles
-    # # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-users-profile
+    # # Methods for interacting with user Playlists
+    # # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-list-users-playlists
     # # ------------------------ #
-    # def get_db_user_profile(self):
-    #     spotify_user = self.user_collection.find_one({"id":self.mongo_user_id})
-    #     if spotify_user == None:
-    #         logging.warning(f"User '{self.mongo_user_id}' not found in User Collection.")
-    #         return
-    #     return spotify_user
+    def get_db_user_playlists(self):
+        document_key = "user_id"
+        user_playlists = mongo_get(
+            primary_key=document_key,
+            ref_id=self.mongo_user_id,
+            collection=self.user_playlist_collection,
+        )
+        return user_playlists
     
     # ------------------------ #
     # Feed in spotify profile to insert/replace existing records
@@ -62,16 +63,12 @@ class MDBUserPlaylistCollection(object):
             )
         return
     
-    # def remove_db_user_profile(self):
-    #     if self.mongo_user_id == None:
-    #         logging.warning("No profie provided - Skipping Delete")
-    #         return
-    #     spotify_user = self.user_collection.find_one({"id":self.mongo_user_id})['id']
-    #     #Delete all instances where Spotify User exists
-    #     count = self.user_collection.delete_many({"id":spotify_user}).deleted_count
-    #     if count <= 0 or count == None:
-    #         logging.warning("No users deleted from User collection.")
-    #     else:
-    #         logging.info(f"Spotify User {spotify_user} account information removed from User Collection.")
-    #     return
+    def remove_db_user_playlist (self):
+        document_key = "user_id"
+        mongo_delete(
+            primary_key=document_key,
+            ref_id=self.mongo_user_id,
+            collection=self.user_playlist_collection,
+        )
+        return
         

@@ -16,7 +16,7 @@ class CommandUser(object):
         super().__init__(*args, **kwargs)
         self.user = UserAssets()
         self.user_profile = self.user.get_user_public_profile(access_token=access_token, user_id=user_id)
-        self.db_user = MDBUserCollection(self.user_profile['id'])
+        self.db_user = MDBUserCollection(self.user_profile["id"])
 
     def get_user(self): 
         return self.db_user.get_db_user_profile() 
@@ -40,13 +40,13 @@ class CommandUserPlaylists(object):
         super().__init__(*args, **kwargs)
         self.user = UserAssets()
         self.user_playlists = self.user.get_user_playlists(access_token=access_token, user_id=user_id)
-        self.db_user = MDBUserPlaylistCollection(self.user_playlists['user_id'])
+        self.db_user = MDBUserPlaylistCollection(user_id = self.user_playlists['user_id'])
 
-    # def get_user(self): 
-    #     return self.db_user.get_db_user_profile() 
+    def get_user_playlists(self): 
+        return self.db_user.get_db_user_playlists() 
 
     def set_user_playlists(self): 
         return self.db_user.write_db_user_playlists(document=self.user_playlists)
 
-    # def delete_user(self):
-    #     return self.db_user.remove_db_user_profile()
+    def delete_user(self):
+        return self.db_user.remove_db_user_playlist()

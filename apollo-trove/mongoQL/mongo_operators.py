@@ -9,14 +9,15 @@ https://pymongo.readthedocs.io/en/stable/tutorial.html
 Creating reusable functions that can read/write to MongoDB
 """
 
-def mongo_get():
+def mongo_get(primary_key, ref_id, collection):
     #START HERE
-    return
-
-def mongo_set(ref_id=None,collection=None,primary_key=None,insert_document=None,overwrite=False):
-    if insert_document == None:
-        logging.warning("No insert document provided - Skipping Write")
+    mongo_record = collection.find_one({primary_key:ref_id})
+    if mongo_record == None:
+        logging.warning(f"Mongo Record for {primary_key}: {ref_id} was not found.")
         return
+    return mongo_record
+
+def mongo_set(primary_key, ref_id,collection,insert_document,overwrite=False):
     mongo_record = collection.find_one({primary_key:ref_id})
     mongo_id = mongo_record[primary_key] if mongo_record != None else None
     if mongo_id == None: 
@@ -44,6 +45,15 @@ def mongo_set(ref_id=None,collection=None,primary_key=None,insert_document=None,
     return
 
 
-def mongo_delete():
-    #START HERE
+def mongo_delete(primary_key, ref_id, collection):
+    if ref_id == None:
+        logging.warning("No referenece ID provided, skipping delete")
+        return
+    mongo_record = collection.find_one({primary_key:ref_id})
+    mongo_record_item = mongo_record[primary_key] if mongo_record != None else None
+    count = collection.delete_many({primary_key:mongo_record_item}).delete_count
+    if count <= 0 or count == None:
+        logging.warning("No records deleted from collection")
+    else:
+        logging.info(f"Mongo record {primary_key}: {mongo_record_item} removed from Collection.")
     return

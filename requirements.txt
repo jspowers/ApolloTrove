@@ -1,15 +1,7 @@
-[[source]]
-url = "https://pypi.org/simple"
-verify_ssl = true
-name = "pypi"
-
-[packages]
-requests = "*"
-pymongo = "*"
-certifi = "*"
-
-[dev-packages]
-
-[requires]
-python_version = "3.11"
-python_full_version = "3.11.3"
+certifi==2022.12.7
+charset-normalizer==3.1.0
+dnspython==2.3.0
+idna==3.4
+pymongo==4.3.3
+requests==2.30.0
+urllib3==2.0.2

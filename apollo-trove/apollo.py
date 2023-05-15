@@ -18,7 +18,7 @@ logging.info(f"Access Token: {access_token} - Expires: {access_token_expires}")
 
 # --------------------------------------- #
 # --  START HERE WITH SPOTIFY USER ID  -- #
-at_instance_user = ""  # <- SET USER ID HERE
+at_instance_user = "jspowers"  # <- SET USER ID HERE
 
 # ----------------------------- #
 # User Profile Data

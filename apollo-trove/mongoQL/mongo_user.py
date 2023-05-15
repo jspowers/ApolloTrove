@@ -45,11 +45,13 @@ class MDBUserCollection(object):
     # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-users-profile
     # ------------------------ #
     def get_db_user_profile(self):
-        spotify_user = self.user_collection.find_one({"id":self.mongo_user_id})
-        if spotify_user == None:
-            logging.warning(f"User '{self.mongo_user_id}' not found in User Collection.")
-            return
-        return spotify_user
+        document_key = "id"
+        user_profile = mongo_get(
+            primary_key=document_key,
+            ref_id=self.mongo_user_id,
+            collection=self.user_collection,
+        )
+        return user_profile
     
     # ------------------------ #
     # Feed in spotify profile to insert/replace existing records
@@ -58,25 +60,21 @@ class MDBUserCollection(object):
         document_key="id"
         desired_overwrite=False
         mongo_set(
+            primary_key=document_key,
             ref_id=self.mongo_user_id,
             collection = self.user_collection,
             insert_document=document,
-            primary_key=document_key,
-            overwrite=desired_overwrite
+            overwrite=desired_overwrite,
             )
         return
     
     def remove_db_user_profile(self):
-        if self.mongo_user_id == None:
-            logging.warning("No profie provided - Skipping Delete")
-            return
-        mongo_record = self.user_collection.find_one({"id":self.mongo_user_id})
-        spotify_user = mongo_record['id'] if mongo_record != None else None
-        #Delete all instances where Spotify User exists
-        count = self.user_collection.delete_many({"id":spotify_user}).deleted_count
-        if count <= 0 or count == None:
-            logging.warning("No users deleted from User collection.")
-        else:
-            logging.info(f"Spotify User {spotify_user} account information removed from User Collection.")
+        document_key="id"
+        mongo_delete(
+            primary_key=document_key,
+            ref_id=self.mongo_user_id,
+            collection=self.user_collection,
+        )
         return
         
+    
