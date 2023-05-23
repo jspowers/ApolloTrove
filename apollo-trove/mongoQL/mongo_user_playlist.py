@@ -15,6 +15,11 @@ class MDBUserPlaylistCollection(object):
     user_playlist_collection = None
     mongo_user_id = None
 
+    def __init__(self, user_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.mongo_user_id = user_id
+        self.user_playlist_collection = self.open_collection("core", "user_playlists")
+    
     #Return the database collection 
     def open_collection(self, db_name, collection_name):
         db_client = open_apollo_db()
@@ -29,11 +34,6 @@ class MDBUserPlaylistCollection(object):
         db_name.close()
         return
     
-    def __init__(self, user_id, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.mongo_user_id = user_id
-        self.user_playlist_collection = self.open_collection("core", "user_playlists")
-
     # # ------------------------ #
     # # USER PLAYLIST
     # # Methods for interacting with user Playlists

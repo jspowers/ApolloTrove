@@ -1,7 +1,7 @@
 import os 
 import logging
 from spotify_assets.spotify_api_auth import SpotifyAPIAuth
-from trove_commands import (CommandUser,CommandUserPlaylists)
+from at_user.at_user_instance import ATUser
 
 
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
@@ -19,13 +19,17 @@ logging.info(f"Access Token: {access_token} - Expires: {access_token_expires}")
 # --------------------------------------- #
 # --  START HERE WITH SPOTIFY USER ID  -- #
 at_instance_user = "jspowers"  # <- SET USER ID HERE
+at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 
-# ----------------------------- #
-# User Profile Data
-# Methods: get_user(), set_user(), delete_user()
-# ----------------------------- #
-user_command = CommandUser(user_id=at_instance_user,access_token=access_token)
-user_playlist_command = CommandUserPlaylists(user_id=at_instance_user,access_token=access_token)
 
-#WIP playlist_command = CommandPlaylist( ,access_token=access_token)
-#WIP track_command = CommandTrack( ,access_token=access_token)
+playlists = at_instance.user_playlist_command.user_playlists['items']
+playlist_ids = [playlist["id"] for playlist in playlists]
+"""
+PICK UP HERE 
+
+- STORE THE LIST OF USER PLAYLISTS TO MONGO DB
+- NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
+- IMPLEMENT ASYNC TO PULL DATA MORE EFFECIENTLY
+
+"""
+pl_docs = at_instance.playlist_command.generate_playlist_list(access_token=access_token, playlists=playlist_ids)
