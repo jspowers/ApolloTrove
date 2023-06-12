@@ -29,8 +29,8 @@ class CommandUser(object):
     def get_user(self): 
         return self.db_user.get_db_user_profile() 
 
-    def set_user(self): 
-        return self.db_user.write_db_user_profile(document=self.user_profile)
+    def set_user(self,overwrite=False): 
+        return self.db_user.write_db_user_profile(document=self.user_profile,overwrite=overwrite)
 
     def delete_user(self):
         return self.db_user.remove_db_user_profile()
@@ -55,8 +55,8 @@ class CommandUserPlaylists(object):
     def get_user_playlists(self): 
         return self.db_user.get_db_user_playlists() 
 
-    def set_user_playlists(self): 
-        return self.db_user.write_db_user_playlists(document=self.user_playlists)
+    def set_user_playlists(self,overwrite=False): 
+        return self.db_user.write_db_user_playlists(document=self.user_playlists,overwrite=overwrite)
 
     def delete_user(self):
         return self.db_user.remove_db_user_playlist()
@@ -64,36 +64,39 @@ class CommandUserPlaylists(object):
 
 
 
-
+# ----------------------------- #
+# Playlist Details
 # ----------------------------- #
 class CommandPlaylists(object):
     playlists_assets = None # spotify API commands
-    user_asset = None # spotify API commands
     db_playlist = None # mongoDB playlists collection
+    playlist_data = None
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, playlist_ids, access_token, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.playlists_assets = PlaylistAssets()
-        self.db_user = MDBPlaylistCollection()
+        self.generate_playlist_list(playlist_ids=playlist_ids,access_token=access_token)
+        self.db_playlist = MDBPlaylistCollection()
 
-    def generate_playlist_list(self, access_token, playlists):
+    def generate_playlist_list(self, access_token, playlist_ids):
         playlist_data = []
         playlist_iterator = 0
-        total_playlist_count = len(playlists)
-        for playlist_id in playlists:
+        total_playlist_count = len(playlist_ids)
+        for playlist_id in playlist_ids:
             playlist_data.append(self.playlists_assets.get_playlist(access_token, playlist_id))
             playlist_iterator += 1
             logging.info(f"Playlist {playlist_iterator}/{total_playlist_count} collected.")
-        print(len(playlist_data))
-        return playlist_data
+        logging.info(f"Retrieved {len(playlist_data)} playlists")
+        self.playlist_data = playlist_data
+        return
         
     # -------------------- #
     # - MongoDB METHODS - #
-    def get_user_playlists(self):
-        return 
+    def get_user_playlists(self,documents):
+        return self.db_playlist.get_db_playlist(documents=documents)
 
-    def get_set_playlist(self):
-        return
+    def set_playlist(self,overwrite):
+        return self.db_playlist.write_db_playlist(self.playlist_data,overwrite=overwrite)
 
-    def delete_playlist(self):
-        return
+    def delete_playlist(self,documents):
+        return self.db_playlist.remove_db_playlist(documents=documents)

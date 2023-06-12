@@ -51,15 +51,14 @@ class MDBUserPlaylistCollection(object):
     # ------------------------ #
     # Feed in spotify profile to insert/replace existing records
     # ------------------------ #
-    def write_db_user_playlists(self,document=None):
+    def write_db_user_playlists(self,document=None,overwrite=False):
         document_key="user_id"
-        desired_overwrite=False
         mongo_set(
             ref_id=self.mongo_user_id,
             collection = self.user_playlist_collection,
             insert_document=document,
             primary_key=document_key,
-            overwrite=desired_overwrite
+            overwrite=overwrite
             )
         return
     

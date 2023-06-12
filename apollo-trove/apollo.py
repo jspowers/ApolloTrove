@@ -18,18 +18,24 @@ logging.info(f"Access Token: {access_token} - Expires: {access_token_expires}")
 
 # --------------------------------------- #
 # --  START HERE WITH SPOTIFY USER ID  -- #
+
+# Establish user instance
 at_instance_user = "jspowers"  # <- SET USER ID HERE
 at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 
 
-playlists = at_instance.user_playlist_command.user_playlists['items']
-playlist_ids = [playlist["id"] for playlist in playlists]
+# Open user instance commands
+at_instance.open_user_commands()
+at_instance.open_user_playlist_commands()
+at_instance.open_playlist_commands()
+
 """
 PICK UP HERE 
 
-- STORE THE LIST OF USER PLAYLISTS TO MONGO DB
-- NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
-- IMPLEMENT ASYNC TO PULL DATA MORE EFFECIENTLY
+- [X] STORE THE LIST OF USER PLAYLISTS TO MONGO DB
+- [ ] NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
+- [ ] IMPLEMENT ASYNC TO PULL DATA MORE EFFECIENTLY
+- [ ] Managing orphaned playlists in MongoDB
+
 
 """
-pl_docs = at_instance.playlist_command.generate_playlist_list(access_token=access_token, playlists=playlist_ids)
