@@ -10,12 +10,18 @@ Creating reusable functions that can read/write to MongoDB
 """
 
 def mongo_get(primary_key, ref_id, collection):
-    #START HERE
     mongo_record = collection.find_one({primary_key:ref_id})
     if mongo_record == None:
         logging.warning(f"Mongo Record for {primary_key}: {ref_id} was not found.")
         return
     return mongo_record
+
+def mongo_get_many(primary_key, ref_id, collection):
+    mongo_records = collection.find({primary_key:ref_id})
+    if mongo_records == None:
+        logging.warning(f"Mongo Record for {primary_key}: {ref_id} was not found.")
+        return
+    return mongo_records
 
 def mongo_set(primary_key, ref_id,collection,insert_document,overwrite=False):
     mongo_record = collection.find_one({primary_key:ref_id})
