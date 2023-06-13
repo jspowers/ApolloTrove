@@ -44,8 +44,7 @@ class MDBUserCollection(object):
     # Methods for interacting with user profiles
     # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-users-profile
     # ------------------------ #
-    def get_db_user_profile(self):
-        document_key = "id"
+    def get_db_user_profile(self, document_key = "id"):
         user_profile = mongo_get(
             primary_key=document_key,
             ref_id=self.mongo_user_id,
@@ -56,8 +55,7 @@ class MDBUserCollection(object):
     # ------------------------ #
     # Feed in spotify profile to insert/replace existing records
     # ------------------------ #
-    def write_db_user_profile(self, document=None, overwrite=False):
-        document_key="id"
+    def write_db_user_profile(self, document=None, document_key = "id", overwrite=False):
         mongo_set(
             primary_key=document_key,
             ref_id=self.mongo_user_id,
@@ -67,8 +65,7 @@ class MDBUserCollection(object):
             )
         return
     
-    def remove_db_user_profile(self):
-        document_key="id"
+    def remove_db_user_profile(self,document_key="id"):
         mongo_delete(
             primary_key=document_key,
             ref_id=self.mongo_user_id,

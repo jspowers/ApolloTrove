@@ -39,8 +39,7 @@ class MDBUserPlaylistCollection(object):
     # # Methods for interacting with user Playlists
     # # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-list-users-playlists
     # # ------------------------ #
-    def get_db_user_playlists(self):
-        document_key = "user_id"
+    def get_db_user_playlists(self, document_key = "user_id"):
         user_playlists = mongo_get(
             primary_key=document_key,
             ref_id=self.mongo_user_id,
@@ -51,8 +50,7 @@ class MDBUserPlaylistCollection(object):
     # ------------------------ #
     # Feed in spotify profile to insert/replace existing records
     # ------------------------ #
-    def write_db_user_playlists(self,document=None,overwrite=False):
-        document_key="user_id"
+    def write_db_user_playlists(self,document=None,overwrite=False,document_key="user_id"):
         mongo_set(
             ref_id=self.mongo_user_id,
             collection = self.user_playlist_collection,
@@ -62,8 +60,7 @@ class MDBUserPlaylistCollection(object):
             )
         return
     
-    def remove_db_user_playlist (self):
-        document_key = "user_id"
+    def remove_db_user_playlist (self, document_key = "user_id"):
         mongo_delete(
             primary_key=document_key,
             ref_id=self.mongo_user_id,

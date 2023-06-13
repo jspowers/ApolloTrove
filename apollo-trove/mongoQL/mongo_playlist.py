@@ -34,8 +34,7 @@ class MDBPlaylistCollection(object):
     # # API Endpoints: https://developer.spotify.com/documentation/web-api/reference/get-playlist
     # # ------------------------ #
 
-    def get_db_playlist(self,documents):
-        document_key = "id"
+    def get_db_playlist(self,documents,document_key="id"):
         for doc in documents:
             playlist_data = mongo_get(
                 primary_key=document_key,
@@ -44,8 +43,7 @@ class MDBPlaylistCollection(object):
             )
         return playlist_data
     
-    def write_db_playlist(self,documents,overwrite=False):
-        document_key="id"
+    def write_db_playlist(self,documents,document_key="id",overwrite=False):
         for doc in documents:
             mongo_set(
                 primary_key=document_key,
@@ -54,12 +52,11 @@ class MDBPlaylistCollection(object):
                 collection=self.playlist_collection,
                 overwrite=overwrite
             )
-    
-    def remove_db_playlist(self,documents): 
-        document_key="id"
-        for doc in documents:
+
+    def remove_db_playlist(self,doc_keys,document_key="id"): 
+        for key in doc_keys:
             mongo_delete(
                 primary_key=document_key,
-                ref_id=doc["id"],
+                ref_id=key,
                 collection=self.playlist_collection,
             )
