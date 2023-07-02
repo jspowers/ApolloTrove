@@ -1,5 +1,4 @@
-from .pymongo_get_database import open_apollo_db
-from .mongo_operators import (mongo_get, mongo_set, mongo_delete)
+from .mongo_operators import (open_collection, mongo_get, mongo_set, mongo_delete)
 import logging
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
 
@@ -12,21 +11,7 @@ class MDBPlaylistCollection(object):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.playlist_collection = self.open_collection("core", "playlists")
-    
-    #Return the database collection 
-    def open_collection(self, db_name, collection_name):
-        db_client = open_apollo_db()
-        db = db_client[db_name]
-        collection = db[collection_name]
-        logging.info(f"successfully opened {db_name}.{collection_name}")
-        return collection
-    
-    def close_user_collection(db_name=None):
-        if db_name == None: 
-            return
-        db_name.close()
-        return
+        self.playlist_collection = open_collection("core", "playlists")
     
     # # ------------------------ #
     # # USER PLAYLIST
@@ -35,23 +20,26 @@ class MDBPlaylistCollection(object):
     # # ------------------------ #
 
     def get_db_playlist(self,documents,document_key="id"):
+        playlist_data = []
         for doc in documents:
-            playlist_data = mongo_get(
+            query_response = mongo_get(
                 primary_key=document_key,
-                ref_id=doc["id"],
+                ref_id=doc[document_key],
                 collection=self.playlist_collection,
             )
+            playlist_data.append(query_response)
         return playlist_data
     
     def write_db_playlist(self,documents,document_key="id",overwrite=False):
         for doc in documents:
             mongo_set(
                 primary_key=document_key,
-                ref_id=doc["id"],
+                ref_id=doc[document_key],
                 insert_document=doc,
                 collection=self.playlist_collection,
                 overwrite=overwrite
             )
+        return
 
     def remove_db_playlist(self,doc_keys,document_key="id"): 
         for key in doc_keys:
@@ -60,3 +48,4 @@ class MDBPlaylistCollection(object):
                 ref_id=key,
                 collection=self.playlist_collection,
             )
+        return

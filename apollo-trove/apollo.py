@@ -28,14 +28,22 @@ at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 at_instance.open_user_commands()
 at_instance.open_user_playlist_commands()
 at_instance.open_playlist_commands()
+at_instance.open_track_commands()
+
+local_playlist_data = at_instance.playlist_command.playlist_data
+
+
+
+##### NOTES #####
+# Playlist data is sotred in
+# at_instance.playlist_command.playlist_data[0]['tracks']['items']
+# then 
+# >>> test_ids = []
+# >>> for track in playlist_test: 
+# ...     test_ids.append(track['track']['id'])
 
 """
-PICK UP HERE 
-
-- [X] STORE THE LIST OF USER PLAYLISTS TO MONGO DB
+# TODO List:
 - [ ] NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
-- [ ] IMPLEMENT ASYNC TO PULL DATA MORE EFFECIENTLY
 - [ ] Managing orphaned playlists in MongoDB
-
-
 """

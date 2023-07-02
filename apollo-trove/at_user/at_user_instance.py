@@ -3,6 +3,7 @@ from .trove_commands import (
     CommandUser,
     CommandUserPlaylists,
     CommandPlaylists,
+    CommandTracks,
     )
 
 # ----------------------------- #
@@ -13,9 +14,11 @@ from .trove_commands import (
 class ATUser(object):
     access_token = None
     user_id = None
+    # Application Commands
     user_command = None
     user_playlist_command = None
     playlist_command = None
+    track_command = None
 
     def __init__(self, user_id, access_token,*args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -43,7 +46,8 @@ class ATUser(object):
         # - opens connection to mongoDB User Playlist collection
     def open_user_playlist_commands(self):
         self.user_playlist_command = CommandUserPlaylists(user_id=self.user_id,access_token=self.access_token)
-        
+        return
+
         # ------------------------- #
         # Called from main application
         # - Create instance of the playlist commands
@@ -56,6 +60,14 @@ class ATUser(object):
         playlists = self.user_playlist_command.user_playlists['items']
         playlist_ids = [playlist["id"] for playlist in playlists]
         self.playlist_command = CommandPlaylists(playlist_ids=playlist_ids,access_token=self.access_token)
+        return
+        
+    def open_track_commands(self):
+        if self.playlist_command == None:
+            logging.error("Playlist command has not been instantiated. Can not open command.")
+            return
+        self.track_command = CommandTracks()
+        return
         
         
         # """

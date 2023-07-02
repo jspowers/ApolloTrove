@@ -1,6 +1,6 @@
 
 from .pymongo_get_database import open_apollo_db
-from .mongo_operators import (mongo_get, mongo_set, mongo_delete)
+from .mongo_operators import (open_collection, mongo_get, mongo_set, mongo_delete)
 import logging
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
 
@@ -18,21 +18,8 @@ class MDBUserPlaylistCollection(object):
     def __init__(self, user_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mongo_user_id = user_id
-        self.user_playlist_collection = self.open_collection("core", "user_playlists")
-    
-    #Return the database collection 
-    def open_collection(self, db_name, collection_name):
-        db_client = open_apollo_db()
-        db = db_client[db_name]
-        collection = db[collection_name]
-        logging.info(f"successfully opened {db_name}.{collection_name}")
-        return collection
-    
-    def close_user_collection(db_name=None):
-        if db_name == None: 
-            return
-        db_name.close()
-        return
+        self.user_playlist_collection = open_collection("core", "user_playlists")
+
     
     # # ------------------------ #
     # # USER PLAYLIST

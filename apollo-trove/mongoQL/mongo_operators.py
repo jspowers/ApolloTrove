@@ -1,4 +1,5 @@
 from pymongo import ReturnDocument
+from .pymongo_get_database import open_apollo_db
 import logging
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
 
@@ -8,6 +9,19 @@ https://pymongo.readthedocs.io/en/stable/tutorial.html
 
 Creating reusable functions that can read/write to MongoDB
 """
+
+def open_collection(self, db_name, collection_name):
+    db_client = open_apollo_db()
+    db = db_client[db_name]
+    collection = db[collection_name]
+    logging.info(f"successfully opened {db_name}.{collection_name}")
+    return collection
+
+def close_user_collection(db_name=None):
+    if db_name == None: 
+        return
+    db_name.close()
+    return
 
 def mongo_get(primary_key, ref_id, collection):
     mongo_record = collection.find_one({primary_key:ref_id})
