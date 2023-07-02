@@ -4,12 +4,14 @@ logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=log
 
 """
 Class: MDBPTrackCollection
+
+
 """
 class MDBTrackCollection(object):
     track_collection = None
 
     def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.track_collection = open_collection("core","tracks")
 
     def get_db_track(self,documents,document_key="id"):

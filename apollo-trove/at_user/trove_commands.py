@@ -5,7 +5,7 @@ from spotify_assets.track_assets import TrackAssets
 from mongoQL.mongo_user import MDBUserCollection 
 from mongoQL.mongo_user_playlist import MDBUserPlaylistCollection
 from mongoQL.mongo_playlist import MDBPlaylistCollection
-from mongoQL.
+from mongoQL.mongo_track import MDBTrackCollection
 
 # ----------------------------- #
 # User Profile Data

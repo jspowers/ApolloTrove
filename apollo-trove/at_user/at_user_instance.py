@@ -63,9 +63,9 @@ class ATUser(object):
         return
         
     def open_track_commands(self):
-        if self.playlist_command == None:
-            logging.error("Playlist command has not been instantiated. Can not open command.")
-            return
+        # if self.playlist_command == None:
+        #     logging.error("Playlist command has not been instantiated. Can not open command.")
+        #     return
         self.track_command = CommandTracks()
         return
         

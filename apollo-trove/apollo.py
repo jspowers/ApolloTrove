@@ -25,12 +25,12 @@ at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 
 
 # Open user instance commands
-at_instance.open_user_commands()
-at_instance.open_user_playlist_commands()
-at_instance.open_playlist_commands()
+# at_instance.open_user_commands()
+# at_instance.open_user_playlist_commands()
+# at_instance.open_playlist_commands()
 at_instance.open_track_commands()
 
-local_playlist_data = at_instance.playlist_command.playlist_data
+# local_playlist_data = at_instance.playlist_command.playlist_data
 
 
 

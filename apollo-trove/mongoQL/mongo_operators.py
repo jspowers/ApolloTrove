@@ -10,7 +10,7 @@ https://pymongo.readthedocs.io/en/stable/tutorial.html
 Creating reusable functions that can read/write to MongoDB
 """
 
-def open_collection(self, db_name, collection_name):
+def open_collection(db_name, collection_name):
     db_client = open_apollo_db()
     db = db_client[db_name]
     collection = db[collection_name]
