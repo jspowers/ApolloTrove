@@ -20,7 +20,7 @@ logging.info(f"Access Token: {access_token} - Expires: {access_token_expires}")
 # --  START HERE WITH SPOTIFY USER ID  -- #
 
 # Establish user instance
-at_instance_user = "1260713492"  # <- SET USER ID HERE
+at_instance_user = "jspowers"  # <- SET USER ID HERE
 at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 
 
@@ -32,24 +32,13 @@ at_instance.open_track_commands()
 
 
 pl_data = at_instance.playlist_command.playlist_data
-tracks = []
+track_ids = at_instance.track_command.prepare_playlist_trackids(pl_data)
 
-for playlist in pl_data:
-    pl_len = len(playlist['tracks']['items'])
-    pl_name = playlist['name']
+track_batch_result = at_instance.track_command.get_spotify_track_assets(track_ids=track_ids, access_token=access_token)
 
-    logging.info(f"Gathering IDs for {pl_len} tracks in '{pl_name}'")
-    for track in playlist['tracks']['items']:
-        tracks.append(track['track']['id'])
+at_user_track_data = [track_data for single_batch in track_batch_result for track_data in single_batch]
 
-
-print(len(tracks))
-track_set = set(tracks)
-print(len(track_set))
-tracks = list(track_set)
-
-
-
+print(len(at_user_track_data))
 
 ##### NOTES #####
 # Playlist data is stored in

@@ -9,8 +9,7 @@ Class: MDBPlaylistCollection
 class MDBPlaylistCollection(object):
     playlist_collection = None
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
         self.playlist_collection = open_collection("core", "playlists")
     
     # # ------------------------ #

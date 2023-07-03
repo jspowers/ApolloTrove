@@ -20,8 +20,7 @@ class MDBUserCollection(object):
     user_collection = None
     mongo_user_id = None
     
-    def __init__(self, user_id, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, user_id):
         self.mongo_user_id = user_id
         self.user_collection = open_collection("core", "users")
 

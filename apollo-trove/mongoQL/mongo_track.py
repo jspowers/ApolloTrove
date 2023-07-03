@@ -10,8 +10,7 @@ Class: MDBPTrackCollection
 class MDBTrackCollection(object):
     track_collection = None
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
         self.track_collection = open_collection("core","tracks")
 
     def get_db_track(self,documents,document_key="id"):

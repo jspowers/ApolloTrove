@@ -1,10 +1,8 @@
 import requests
 
-class PlaylistAssets(object):
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    
+class PlaylistAssets():
+
+    @staticmethod
     def get_spotify_playlist(self, access_token, playlist_id):
         token_header = {'Authorization': f'Bearer {access_token}'}
         url_ = f'https://api.spotify.com/v1/playlists/{playlist_id}?market=US'
@@ -13,7 +11,6 @@ class PlaylistAssets(object):
         # Setting up logic for playlists longer than 100 items
         result = r
         next_get = result['tracks']['next']
-
         if next_get == None:
             return result
         else:

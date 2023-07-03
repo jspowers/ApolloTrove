@@ -1,12 +1,10 @@
 import requests
 import logging
 
-class UserAssets(object):
+class UserAssets():
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    
-    def get_spotify_user_public_profile(self, access_token, user_id):
+    @staticmethod
+    def get_spotify_user_public_profile(access_token, user_id):
         if user_id == None or user_id == "":
             logging.warning("No userID given, ending get request")
             return
@@ -16,7 +14,8 @@ class UserAssets(object):
         logging.info(f"API response status code: {r.status_code}")
         return r.json()
 
-    def get_spotify_user_playlists(self, access_token = None, user_id = None):
+    @staticmethod
+    def get_spotify_user_playlists(access_token = None, user_id = None):
         user_playlist_meta = []
         # user_playlist_list = []
         # user_playlist_ids = []
@@ -30,15 +29,8 @@ class UserAssets(object):
                 # user_playlist_ids.append(playlist['id'])
                 user_playlist_meta.append(playlist)
             next_get = r['next']
-            url_ = next_get
-        
+            url_ = next_get        
         return {
             "user_id": user_id,
             "items": user_playlist_meta
             }
-        # TEMP - ONLY RETURN TOTAL META
-        # return {
-        #     "playlist_meta": user_playlist_meta,
-        #     "playlist_names": user_playlist_list,
-        #     "playlist_ids": user_playlist_ids
-        # }

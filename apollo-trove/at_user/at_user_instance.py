@@ -20,8 +20,7 @@ class ATUser(object):
     playlist_command = None
     track_command = None
 
-    def __init__(self, user_id, access_token,*args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, user_id, access_token):
         self.access_token = access_token
         self.user_id = user_id
         
@@ -69,13 +68,3 @@ class ATUser(object):
         self.track_command = CommandTracks()
         return
         
-        
-        # """
-        # PICK UP HERE TO STORE THE LIST OF USER PLAYLISTS TO MONGO DB
-        # """
-        # pl_docs = self.playlist_command.generate_playlist_list(access_token=self.access_token, playlists=playlist_ids)
-
-        
-
-        #WIP playlist_command = CommandPlaylist( ,access_token=access_token)
-        #WIP track_command = CommandTrack( ,access_token=access_token)
