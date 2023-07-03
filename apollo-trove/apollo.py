@@ -20,27 +20,54 @@ logging.info(f"Access Token: {access_token} - Expires: {access_token_expires}")
 # --  START HERE WITH SPOTIFY USER ID  -- #
 
 # Establish user instance
-at_instance_user = "jspowers"  # <- SET USER ID HERE
+at_instance_user = "1260713492"  # <- SET USER ID HERE
 at_instance = ATUser(user_id=at_instance_user, access_token=access_token)
 
 
 # Open user instance commands
-# at_instance.open_user_commands()
-# at_instance.open_user_playlist_commands()
-# at_instance.open_playlist_commands()
+at_instance.open_user_commands()
+at_instance.open_user_playlist_commands()
+at_instance.open_playlist_commands()
 at_instance.open_track_commands()
 
-# local_playlist_data = at_instance.playlist_command.playlist_data
+
+pl_data = at_instance.playlist_command.playlist_data
+tracks = []
+
+for playlist in pl_data:
+    pl_len = len(playlist['tracks']['items'])
+    pl_name = playlist['name']
+
+    logging.info(f"Gathering IDs for {pl_len} tracks in '{pl_name}'")
+    for track in playlist['tracks']['items']:
+        tracks.append(track['track']['id'])
+
+
+print(len(tracks))
+track_set = set(tracks)
+print(len(track_set))
+tracks = list(track_set)
+
 
 
 
 ##### NOTES #####
-# Playlist data is sotred in
+# Playlist data is stored in
 # at_instance.playlist_command.playlist_data[0]['tracks']['items']
 # then 
 # >>> test_ids = []
 # >>> for track in playlist_test: 
 # ...     test_ids.append(track['track']['id'])
+
+"""
+playlist_data
+    [o] LOOP
+        ['tracks']['items']
+            [o] LOOP
+                ['track']['id']
+"""
+
+
 
 """
 # TODO List:

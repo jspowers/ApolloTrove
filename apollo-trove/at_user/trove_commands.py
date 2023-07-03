@@ -31,10 +31,12 @@ class CommandUser(object):
         return self.db_user.get_db_user_profile() 
 
     def set_user(self,overwrite=False): 
-        return self.db_user.write_db_user_profile(document=self.user_profile,overwrite=overwrite)
+        self.db_user.write_db_user_profile(document=self.user_profile,overwrite=overwrite)
+        return
 
     def delete_user(self):
-        return self.db_user.remove_db_user_profile()
+        self.db_user.remove_db_user_profile()
+        return
 
 
 # ----------------------------- #
@@ -58,10 +60,12 @@ class CommandUserPlaylists(object):
         return self.db_user_playlists.get_db_user_playlists() 
 
     def set_user_playlists(self,overwrite=False): 
-        return self.db_user_playlists.write_db_user_playlists(document=self.user_playlists,overwrite=overwrite)
+        self.db_user_playlists.write_db_user_playlists(document=self.user_playlists,overwrite=overwrite)
+        return
 
     def delete_user(self):
-        return self.db_user_playlists.remove_db_user_playlist()
+        self.db_user_playlists.remove_db_user_playlist()
+        return
 
 
 
@@ -101,10 +105,12 @@ class CommandPlaylists(object):
         return self.db_playlist.get_db_playlist(documents=documents)
 
     def set_playlist(self,overwrite):
-        return self.db_playlist.write_db_playlist(self.playlist_data,overwrite=overwrite)
+        self.db_playlist.write_db_playlist(self.playlist_data,overwrite=overwrite)
+        return
 
-    def delete_playlist(self,documents):
-        return self.db_playlist.remove_db_playlist(documents=documents)
+    def delete_playlist(self,keys):
+        self.db_playlist.remove_db_playlist(doc_keys=keys)
+        return
     
 
 # ----------------------------- #
@@ -140,13 +146,12 @@ class CommandTracks(object):
     # - MongoDB METHODS - #
     # TODO: Write mongo track methods
     def get_tracks(self, documents):
-        # function that pulls track data from mongoDB
-        return
+        return self.db_track.get_db_track(documents=documents)
     
     def set_tracks(self, documents):
-        # function that writes track data from mongoDB
+        self.db_track.write_db_track(documents=documents)
         return
     
-    def delete(self, documents):
-        # function that deletes track data from mongoDB
+    def delete_tracks(self,keys):
+        self.db_track.remove_db_track(doc_keys=keys)
         return
