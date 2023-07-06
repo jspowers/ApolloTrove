@@ -40,26 +40,12 @@ at_user_track_data = [track_data for single_batch in track_batch_result for trac
 
 print(len(at_user_track_data))
 
-##### NOTES #####
-# Playlist data is stored in
-# at_instance.playlist_command.playlist_data[0]['tracks']['items']
-# then 
-# >>> test_ids = []
-# >>> for track in playlist_test: 
-# ...     test_ids.append(track['track']['id'])
-
-"""
-playlist_data
-    [o] LOOP
-        ['tracks']['items']
-            [o] LOOP
-                ['track']['id']
-"""
-
-
 
 """
 # TODO List:
+- [ ] PRIORITY 1: BULK MONGODB WRITE
+
 - [ ] NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
 - [ ] Managing orphaned playlists in MongoDB
+
 """

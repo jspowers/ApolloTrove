@@ -8,8 +8,7 @@ class SpotifyAPIAuth(object):
     access_token_did_expire = True
     token_url = 'https://accounts.spotify.com/api/token'
     
-    def __init__(self, client_id, client_secret, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, client_id, client_secret):
         self.client_id = client_id
         self.client_secret = client_secret
         

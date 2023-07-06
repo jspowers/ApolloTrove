@@ -3,7 +3,7 @@ import requests
 class PlaylistAssets():
 
     @staticmethod
-    def get_spotify_playlist(self, access_token, playlist_id):
+    def get_spotify_playlist(access_token, playlist_id):
         token_header = {'Authorization': f'Bearer {access_token}'}
         url_ = f'https://api.spotify.com/v1/playlists/{playlist_id}?market=US'
         r = requests.get(url_, headers=token_header).json()

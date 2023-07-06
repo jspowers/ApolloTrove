@@ -149,6 +149,7 @@ class CommandTracks(object):
 
     # -------------------- #
     # - TRANSFORMATION METHODS - #
+    @staticmethod
     def prepare_playlist_trackids(playlist_data):
         tracks = []
         for playlist in playlist_data:
