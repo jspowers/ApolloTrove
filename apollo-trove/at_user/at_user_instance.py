@@ -1,10 +1,8 @@
 import logging
-from .trove_commands import (
-    CommandUser,
-    CommandUserPlaylists,
-    CommandPlaylists,
-    CommandTracks,
-    )
+from .trove_commands.command_user import CommandUser
+from .trove_commands.command_user_playlists import CommandUserPlaylists
+from .trove_commands.command_playlists import CommandPlaylists
+from .trove_commands.command_tracks import CommandTracks
 
 # ----------------------------- #
 # User Profile Data
