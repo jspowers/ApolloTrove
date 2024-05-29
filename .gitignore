@@ -1,3 +1,9 @@
+# Project Utilities
 .clean_directory.py
+
+# Project Assets
 apollo_db.sqlite
+
+# Environment Variables & Assets
 .env
+/venv

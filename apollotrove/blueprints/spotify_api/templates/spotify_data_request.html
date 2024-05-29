@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Apollo Trove - Coming Soon</title>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center" id="error">
+    <h3>Request Spotify Data</h3>
+    {% if spotify_user_id %}
+    <p> Pulling data for {{spotify_user_id}} </p>
+    {% endif %}
+    <br>
+    <br>
+    <h4>User Data Request</h4>
+    <form method="POST" action="/spotify_data">
+        <input type="submit" name="get_spotify_account" value="Get Spotify Account Details"/>
+    </form>
+    <br>
+    <h4>User Playlist Data Request</h4>
+    <form method="POST" action="/spotify_data">
+        <input type="submit" name="get_spotify_user_playlists" value="Get User Playlists"/>
+    </form>
+    {% for playlist in spotify_user_playlists %}
+    <p>{{playlist}}</p>
+    <br>
+    {% endfor %}
+    <br>
+    <h4>Playlist Data Request</h4>
+    <form method="POST" action="/spotify_data">
+        <input type="submit" name="get_playlists" value="Get Playlists"/>
+    </form>
+    <br>
+    <h4>Track Data Request</h4>
+    <form method="POST" action="/spotify_data">
+        <input type="submit" name="get_tracks" value="Get Tracks"/>
+    </form>
+    <br>
+    
+</div>
+{% endblock %}

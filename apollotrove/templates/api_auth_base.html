@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block title %}
+    {% endblock %}
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <!-- Milligram CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dist/milligram.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dist/third_party_branding.css') }}">
+</head>
+
+<body>
+    <main class="wrapper">
+        <nav class="navigation" style="background-color: #F6F7F7;">
+            <section class="container">
+                <div class="row">
+                    <div class="column column-30"><img style="min-width: 200px; max-width: 200px;" src="{{ url_for('static', filename = 'brand_assets/LogoMinimal-40-dark.png') }}"></div>
+                    <div class="column column-30" style="float: right;"></div>
+                    {% if current_user_authenticated == True %}
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('home.home_profile') }}">{{ user_username }} Account</a></div>
+                    <div class="column column-20 force-center"><a class="button button-clear" href="{{ url_for('auth.auth_logout') }}">Log Out</a></div>
+                    {% else %}
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('auth.auth_login') }}">Login</a></div>
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('auth.auth_register') }}">Register</a></div>
+                    {% endif %}
+                  </div>
+            </section>
+        </nav>
+
+        <section class="container">
+            <br>
+            <h5><u style="color: #AEAEAE;"><a href="{{ url_for('home.home_profile')}}" style="color: inherit;">< Return to Profile</a></u></h5>
+            <br>
+        </section>
+
+
+        <!-- ERROR MESSAGES -->
+        <section class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <blockquote style="border-left: 0.3rem solid #B53731;"">
+                {% for message in messages %}
+                    <p style="color: inherit;">{{ message }}</p>
+                {% endfor %}
+                </blockquote>        
+            {% endif %}
+            {% endwith %}   
+        </section>
+        
+
+
+        <section class="container">
+            {% block content %}
+            {% endblock %}
+        </section>
+
+        
+
+        <section class="container">
+            <br>
+            <br>
+            <br>
+            <br>
+            <footer>
+                <img src="{{ url_for('static', filename = 'brand_assets/apollo-trove-header.png') }}" width="800">
+                <div class="row">
+                    <div class="column column-25" style="margin-top: 0;"><a href="">about</a></div>
+                    <div class="column column-25" style="margin-top: 0;"><a href="">contribute</a></div>
+                    <div class="column column-25"></div>
+                    <div class="column column-25"><p>&copy; 2023 apollotrove.com</p></div>
+                </div>
+            </footer>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+{% extends "account_base.html" %}
+
+{% block title %}
+<title>Apollo Trove - Coming Soon</title>
+{% endblock %}
+
+{% block content %}
+
+
+<br>
+<br>
+<h3>Log in to access your Trove:</h3>
+<br>
+<form method="POST" action="/auth/login">
+    <fieldset>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Username" autofocus="" id="username">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" autofocus="" id="password">
+        <br>
+        <input type="checkbox" id="remember">
+        <label class="label-inline" for="remember">Remember Me</label>
+        <br>
+        <br>
+        <input class="button is-block is-info is-large is-fullwidth" type="submit" value="Login">
+    </fieldset>
+</form>
+
+
+
+
+    <!-- <div class="field">
+        <div class="control">
+            <input class="input is-large" type="username" name="username" placeholder="Username" autofocus="">
+        </div>
+    </div>
+    <br>
+
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="password" , name="password" , placeholder="Password" autofocus="">
+        </div>
+    </div>
+    <br>
+
+    <div class="field">
+        <label class="checkbox">
+            <input type="checkbox" name="remember">
+            Remember Me
+        </label>
+    </div> -->
+
+
+
+<br>
+<br>
+{% endblock %}

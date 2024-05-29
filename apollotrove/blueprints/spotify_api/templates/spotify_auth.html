@@ -1,0 +1,13 @@
+{% extends "api_auth_base.html" %}
+
+{% block title %}
+<title>Apollo Trove - Coming Soon</title>
+{% endblock %}
+
+{% block content %}
+
+<h3>Spotify API Authorization Home Page</h3>
+<br>
+<a href="{{ url_for('.spotify_login')}}">Login to Spotify</a>
+
+{% endblock %}

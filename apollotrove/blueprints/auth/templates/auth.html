@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Apollo Trove - Coming Soon</title>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center" id="error">
+    <h3>Authorization Home Page</h3>
+    <a href="{{ url_for('home.home_index') }}">Home Screen</a>
+    <br>
+    <a href="{{url_for('.auth_login')}}">Login Screen</a>
+    <br>
+    <a href="{{url_for('.auth_register')}}">Registration Screen</a>
+</div>
+{% endblock %}

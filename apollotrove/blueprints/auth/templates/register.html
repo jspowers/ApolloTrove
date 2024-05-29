@@ -1,0 +1,69 @@
+{% extends "account_base.html" %}
+
+{% block title %}
+<title>AT - Register</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".showpassword").each(function (index, input) {
+            var $input = $(input);
+            $('<br><label class="showpasswordlabel"/>').append(
+                $("<input type='checkbox' class='showpasswordcheckbox' />").click(function () {
+                    var change = $(this).is(":checked") ? "text" : "password";
+                    var rep = $("<input type='" + change + "' />")
+                        .attr("id", $input.attr("id"))
+                        .attr("name", $input.attr("name"))
+                        .attr('class', $input.attr('class'))
+                        .val($input.val())
+                        .insertBefore($input);
+                    $input.remove();
+                    $input = rep;
+                })
+            ).append($("<span/>").text(" Show password")).insertAfter($input);
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+<br>
+<br>
+<h3>Register as an Apollo User</h3>
+<br>
+<form method="POST" action="/auth/register">
+
+    <fieldset>
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" placeholder="First Name" autofocus="" id="first_name">
+        <br>
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" placeholder="Last Name" autofocus="" id="last_name">
+        <br>
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Email" autofocus="" id="email">
+        <br>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="username" autofocus="" id="username">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" autofocus="" id="password">
+        <br>
+        <label for="confirm_password"><em>Confirm Password</em></label>
+        <input type="password" name="confirm_password" placeholder="Repeat Password" autofocus="" id="confirm_password"
+            class="showpassword">
+        <br>
+        <br>
+        <input class="button is-block is-info is-large is-fullwidth" type="submit" value="Register Account">
+    </fieldset>
+
+
+
+</form>
+
+<br>
+<br>
+<a href="{{ url_for('.auth_home')}}">Get Started Screen</a>
+
+{% endblock %}

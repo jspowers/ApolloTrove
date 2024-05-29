@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>AT - Spotify Analysis</title>
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- <section> -->
+    <!-- <h4>Summary Statistics Charts</h4> -->
+    <!-- <div class="charts">
+        <div class="chart">Chart 1 (Library Size)</div>
+        <div class="chart">Chart 2 (Playlist Count)</div>
+        <div class="chart">Chart 3 (Top 5 Artists)</div>
+        <div class="chart">Chart 4 (Top 5 Songs)</div>
+        <div class="chart">Chart 5 (Top Genre)</div>
+    </div> -->
+<!-- </section>
+<section>
+    <h2>Recent Library Stats</h2>
+    <div class="recent-stats"> -->
+        <!-- Recent library stats data here -->
+    <!-- </div>
+</section> --> 
+<section>
+    <h4>Playlists</h4>
+    <p>{{users_playlists|length}} Playlists</p>
+    <table>
+        <tr>
+            {% for playlist in users_playlists %}
+                <td>
+                    <strong>{{ playlist['name'] }}</strong><br>
+                    Track Count: {{ playlist['tracks']['total'] }}<br>
+                </td>
+                {% if loop.index % 4 == 0 %}
+                    </tr><tr>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
+</section>
+
+
+
+{% endblock %}I

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block title %}
+    {% endblock %}
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <!-- Milligram CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dist/milligram.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dist/third_party_branding.css') }}">
+</head>
+
+<body>
+    <main class="wrapper">
+        <nav class="navigation" style="background-color: #F6F7F7;">
+            <section class="container">
+                <div class="row">
+                    <div class="column column-30"><img style="min-width: 200px; max-width: 200px;" src="{{ url_for('static', filename = 'brand_assets/LogoMinimal-40-dark.png') }}"></div>
+                    <div class="column column-30" style="float: right;"></div>
+                    {% if current_user_authenticated == True %}
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('home.home_profile') }}">{{ user_username }} Account</a></div>
+                    <div class="column column-20 force-center"><a class="button button-clear" href="{{ url_for('auth.auth_logout') }}">Log Out</a></div>
+                    {% else %}
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('auth.auth_login') }}">Login</a></div>
+                    <div class="column column-20 force-center"><a class="button" href="{{ url_for('auth.auth_register') }}">Register</a></div>
+                    {% endif %}
+                  </div>
+            </section>
+        </nav>
+
+        <section class="container">
+            <br>
+            <h1>Apollo Trove</h1>
+            <p style="margin-bottom: 1rem;">We have spent the last decade curating the artistic creations import to us. the music we listen to, the movies we watch, the books we read. <strong>Find. Save. Analyze. Export.</strong></p>
+            <p>Apollo Trove is here to be the collection for your collections.</p>
+            <p>Click one of the Apps below to analyze your concent:</p>
+            
+            <div class="row">
+                <div class="column column-25 force-center"><a href="{{ url_for('home.user_spotify_analysis') }}" class="button min-button spotify-branding">Spotify</a></div>
+                <div class="column column-25 force-center"><a href="" class="button min-button letterboxd-branding">Letterboxd</a></div>
+                <div class="column column-25 force-center"><a href="" class="button min-button goodreads-branding">GoodReads</a></div>
+                <div class="column column-25 force-center"><a href="" class="button min-button apple-music-branding">Apple Music</a></div>
+            </div>
+            <br>
+            <br>
+        </section>
+
+        <section class="container">
+            {% block content %}
+            {% endblock %}
+        </section>
+
+        <section class="container">
+            <br>
+            <br>
+            <br>
+            <br>
+            <footer>
+                <img src="{{ url_for('static', filename = 'brand_assets/apollo-trove-header.png') }}" width="800">
+                <div class="row">
+                    <div class="column column-25" style="margin-top: 0;"><a href="">about</a></div>
+                    <div class="column column-25" style="margin-top: 0;"><a href="">contribute</a></div>
+                    <div class="column column-25"></div>
+                    <div class="column column-25"><p>&copy; 2023 apollotrove.com</p></div>
+                </div>
+            </footer>
+        </section>
+    </main>
+</body>
+
+</html>
