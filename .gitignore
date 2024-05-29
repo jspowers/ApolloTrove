@@ -1,4 +1,3 @@
-venv/
 .clean_directory.py
 apollo_db.sqlite
 .env
