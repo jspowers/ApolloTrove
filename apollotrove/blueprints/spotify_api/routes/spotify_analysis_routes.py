@@ -1,7 +1,7 @@
 import logging
 from flask import render_template, request
 from flask_login import current_user, login_required
-from ..home import home_bp
+from ..spotify_api import spotify_api_bp
 from apollotrove.extensions import apollo_db
 from apollotrove.utilities.mongoQL.mongo_spotify_user import MDBSpotifyUserCollection
 from apollotrove.models.user_connected_accounts import UserConnectedAccounts
@@ -9,7 +9,7 @@ from apollotrove.utilities.mongoQL.mongo_spotify_user_playlist import MDBSpotify
 # from apollotrove.utilities.mongoQL.mongo_spotify_playlist import MDBSpotifyPlaylistCollection
 # from apollotrove.utilities.mongoQL.mongo_spotify_track import MDBSpotifyTrackCollection
 
-@home_bp.route('/spotify_analysis', methods=['GET','POST'])
+@spotify_api_bp.route('/spotify_analysis', methods=['GET','POST'])
 @login_required
 def user_spotify_analysis():
     # Route to populate information that is stored in MongoDB    
