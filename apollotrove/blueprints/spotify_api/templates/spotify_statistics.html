@@ -25,13 +25,16 @@
     <!-- </div>
 </section> --> 
 <section>
-    <h4>Playlists</h4>
+    <hr>
+    <details>
+    <summary>Playlists</summary>
     <p>{{users_playlists|length}} Playlists</p>
     <table>
         <tr>
             {% for playlist in users_playlists %}
                 <td>
-                    <strong>{{ playlist['name'] }}</strong><br>
+                    <strong>{{ playlist['name'] }}</strong>
+                    <br>
                     Track Count: {{ playlist['tracks']['total'] }}<br>
                 </td>
                 {% if loop.index % 4 == 0 %}
@@ -40,6 +43,7 @@
             {% endfor %}
         </tr>
     </table>
+    </details>
 </section>
 
 
