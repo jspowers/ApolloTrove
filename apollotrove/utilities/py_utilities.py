@@ -1,3 +1,7 @@
+# --------------------------------- #
+# VALUE MASK:
+# for hiding sensitive data
+# --------------------------------- #
 def get_value_mask(raw_value: str) -> str:
     if raw_value == None or len(raw_value) <= 1:
         return None

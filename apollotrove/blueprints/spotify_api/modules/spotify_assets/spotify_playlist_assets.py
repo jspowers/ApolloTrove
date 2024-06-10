@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 
 class SpotifyPlaylistAssets():
@@ -6,13 +7,16 @@ class SpotifyPlaylistAssets():
     def get_spotify_playlist(access_token, playlist_id):
         token_header = {'Authorization': f'Bearer {access_token}'}
         url_ = f'https://api.spotify.com/v1/playlists/{playlist_id}?market=US'
+        request_time = datetime.now()
         r = requests.get(url_, headers=token_header).json()
-        
         # Setting up logic for playlists longer than 100 items
-        result = r
+        result = r.json()
         next_get = result['tracks']['next']
         if next_get == None:
-            return result
+            return {
+                "request_ts": request_time,
+                "result": result
+            }
         else:
             track_bank = result['tracks']['items']
             url_ = result['tracks']['next']
@@ -24,5 +28,8 @@ class SpotifyPlaylistAssets():
                 next_get = r['next']
                 url_ = next_get
             result['tracks']['items'] = track_bank
-            return result
+            return {
+                "request_ts": request_time,
+                "result": result
+            }
     

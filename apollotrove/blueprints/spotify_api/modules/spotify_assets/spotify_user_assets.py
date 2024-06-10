@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 import logging
 
@@ -10,23 +11,32 @@ class SpotifyUserAssets():
             return
         token_header = {'Authorization': f'Bearer {public_access_token}'}
         url_ = f"https://api.spotify.com/v1/users/{user_id}"
+        request_time = datetime.now()
         r = requests.get(url_, headers=token_header)
         logging.info(f"API response status code: {r.status_code}")
-        return r.json()
+        return {
+            "request_ts": request_time ,
+            "result": r.json()
+            }
 
     @staticmethod
     def get_spotify_current_user_private_profile(access_token):
         token_header = {'Authorization': f'Bearer {access_token}'}
         url_ = "https://api.spotify.com/v1/me"
+        request_time = datetime.now()
         r = requests.get(url_, headers=token_header)
         logging.info(f"API response status code: {r.status_code}")
-        return r.json()
+        return {
+            "request_ts": request_time,
+            "result": r.json()
+            }
 
     @staticmethod
     def get_spotify_user_playlists(access_token = None, user_id = None):
         user_playlist_meta = []
         # user_playlist_list = []
         # user_playlist_ids = []
+        request_time = datetime.now()
         token_header = {'Authorization': f'Bearer {access_token}'}
         url_ = f'https://api.spotify.com/v1/users/{user_id}/playlists'
         next_get = ''
@@ -40,6 +50,7 @@ class SpotifyUserAssets():
             next_get = r['next']
             url_ = next_get        
         return {
+            "request_ts": request_time,
             "user_id": user_id,
             "items": user_playlist_meta
             }
