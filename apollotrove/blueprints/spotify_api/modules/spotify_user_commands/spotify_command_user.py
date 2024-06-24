@@ -15,7 +15,7 @@ class SpotifyCommandUser(object):
         if user_id != None:
             self.user_profile = self.user_assets.get_spotify_user_public_profile(
                 user_id=user_id
-                ,access_token=access_token
+                ,public_access_token=access_token
                 )
             self.db_user = MDBSpotifyUserCollection(self.user_profile["id"])
         else:

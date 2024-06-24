@@ -1,7 +1,29 @@
+
+/* Branding Nav */
+.spotify-branding-nav {
+    margin-bottom: 0rem;
+    border: none;
+    height: .5rem;
+    background-color: #476548;
+    border-radius: 1rem;
+}
+
 /* Branding Assets */
 .spotify-branding {
     background-color: #1DB954;
     color: black;
+    border: none;
+}
+
+.spotify-active-nav {
+    background-color: #476548;
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 0rem;
+    border: none;
+}
+.passive-nav {
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 0rem;
     border: none;
 }
 

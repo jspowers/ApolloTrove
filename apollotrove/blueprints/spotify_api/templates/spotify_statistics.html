@@ -4,13 +4,12 @@
 <title>AT - Spotify Analysis</title>
 {% endblock %}
 
+
+
 {% block content %}
-
-
-
 <!-- <section> -->
-    <!-- <h4>Summary Statistics Charts</h4> -->
-    <!-- <div class="charts">
+<!-- <h4>Summary Statistics Charts</h4> -->
+<!-- <div class="charts">
         <div class="chart">Chart 1 (Library Size)</div>
         <div class="chart">Chart 2 (Playlist Count)</div>
         <div class="chart">Chart 3 (Top 5 Artists)</div>
@@ -21,31 +20,55 @@
 <section>
     <h2>Recent Library Stats</h2>
     <div class="recent-stats"> -->
-        <!-- Recent library stats data here -->
-    <!-- </div>
-</section> --> 
+<!-- Recent library stats data here -->
+<!-- </div>
+</section> -->
+
+
+<hr class="spotify-branding-nav">
 <section>
-    <hr>
-    <details>
-    <summary>Playlists</summary>
-    <p>{{users_playlists|length}} Playlists</p>
-    <table>
-        <tr>
-            {% for playlist in users_playlists %}
-                <td>
-                    <strong>{{ playlist['name'] }}</strong>
-                    <br>
-                    Track Count: {{ playlist['tracks']['total'] }}<br>
-                </td>
-                {% if loop.index % 4 == 0 %}
-                    </tr><tr>
-                {% endif %}
-            {% endfor %}
-        </tr>
-    </table>
-    </details>
+    <div class="row">
+        <div class="column column-25 force-center"><a href="{{ url_for('spotify_api.user_spotify_analysis') }}"
+                class="button min-button spotify-active-nav">User Data</a></div>
+        <div class="column column-25 force-center"><a href="" class="button min-button passive-nav">Library</a></div>
+        <div class="column column-25 force-center"><a href="" class="button min-button passive-nav">Playlists</a></div>
+        <div class="column column-25 force-center"><a href="" class="button min-button passive-nav">Recent Trends</a></div>
+    </div>
+    <br>
 </section>
+<section>
+    <h3>Latest Sptotify Data Refresh</h3>
+    <table>
+        <tbody>
+            <tr>
+                <th>User Data</th>
+                <td><code>{{ user_data_refresh_ts }}</code></td>
+            </tr>
+            <tr>
+                <th>User Playlists</th>
+                <td><code>{{ user_playlist_refresh_ts }}</code></td>
+            </tr>
+            <tr>
+                <th>Playlists</th>
+                <td>
+                    <code>{{ playlist_refesh_ts }}</code>
+                    <small style="margin: 0rem; font-style: italic;">may take minutes to refresh</small>
+                </td>
+            </tr>
+            <tr>
+                <th>Tracks</th>
+                <td>
+                    <code>{{ track_data_refesh_ts }}</code>
+                    <small style="margin: 0rem; font-style: italic;">may take minutes to refresh</small>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="POST" action="/spotify_api/refresh_spotify_data">    
+        <input type="submit" name="refresh_user_spotify_data" value="Refresh Spotify Data">
+    </form>
+</section>
+<hr>
 
 
-
-{% endblock %}I
+{% endblock %}
