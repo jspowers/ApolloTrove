@@ -74,22 +74,22 @@ def refresh_spotify_user_data():
     # Open command to update USER info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
     at_instance.open_user_commands()
-    at_instance.user_command.get_user()
+    # at_instance.user_command.get_user()
     at_instance.user_command.set_user(overwrite=True)
     
     # --------------------------- #
     # Open command to update USER PLAYLIST info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
     at_instance.open_user_playlist_commands()
-    at_instance.user_playlist_command.get_user_playlists()
+    # at_instance.user_playlist_command.get_user_playlists()
     at_instance.user_playlist_command.set_user_playlists(overwrite=True)
 
     # --------------------------- #
     # Open command to update PLAYLIST info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
-    at_instance.open_user_playlist_commands()
-    at_instance.user_playlist_command.get_user_playlists()
-    at_instance.user_playlist_command.set_user_playlists(overwrite=True)
+    at_instance.open_playlist_commands()
+    # at_instance.user_playlist_command.get_user_playlists()
+    at_instance.playlist_command.set_playlist(overwrite=True)
         
     return redirect(url_for('spotify_api.user_spotify_analysis'))
         

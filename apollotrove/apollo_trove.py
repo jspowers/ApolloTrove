@@ -1,5 +1,5 @@
 import logging
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
+logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.INFO)
 
 from apollotrove import create_apollo_trove
 from apollotrove.extensions import apollo_db

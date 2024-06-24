@@ -28,8 +28,8 @@ class SpotifyCommandPlaylists(object):
             logging.info(f"Playlist {playlist_iterator}/{total_playlist_count} collected.")
             # ----------------- #
             # TESTING CONDITION
-            if playlist_iterator == 10:
-                break
+            # if playlist_iterator == 10:
+                # break
             # ----------------- #
         logging.info(f"Retrieved {len(playlist_data)} playlists")
         self.playlist_data = playlist_data
@@ -37,7 +37,7 @@ class SpotifyCommandPlaylists(object):
         
     # -------------------- #
     # - MongoDB METHODS - #
-    def get_user_playlists(self,documents):
+    def get_playlists(self,documents):
         return self.db_playlist.get_db_playlist(documents=documents)
 
     def set_playlist(self,overwrite):

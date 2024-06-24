@@ -52,7 +52,7 @@ class ATSpotUser(object):
         # - opens connection to mongoDB Playlist collection
     def open_playlist_commands(self):
         if self.user_playlist_command == None:
-            logging.error("User Playlist command has not been instantiated. Can not open playlist command.")
+            logging.error("User-Playlist command has not been instantiated. Can not open playlist command.")
             return
         playlists = self.user_playlist_command.user_playlists['items']
         playlist_ids = [playlist["id"] for playlist in playlists]

@@ -1,5 +1,4 @@
 import logging, os
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
 
 from flask import Flask
 from flask_login import LoginManager
