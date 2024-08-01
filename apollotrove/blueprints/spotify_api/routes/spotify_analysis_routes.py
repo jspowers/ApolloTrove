@@ -73,23 +73,48 @@ def refresh_spotify_user_data():
     # --------------------------- #
     # Open command to update USER info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
+    # opening will pull user data automatatically and save it to the User instance
+    #TODO: change this so it isn't automatic, bad for memory
     at_instance.open_user_commands()
-    # at_instance.user_command.get_user()
+    # at_instance.user_command.get_user() # THIS CURRENTLY HAPPENS AUTOMATICALLY WHEN INSTANTIATED
     at_instance.user_command.set_user(overwrite=True)
     
     # --------------------------- #
     # Open command to update USER PLAYLIST info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
+    # opening will pull userplaylist data automatically and save it to the UserPlaylist instance
+    #TODO: change this so it isn't automatic, bad for memory
     at_instance.open_user_playlist_commands()
-    # at_instance.user_playlist_command.get_user_playlists()
+    # at_instance.user_playlist_command.get_user_playlists() # THIS CURRENTLY HAPPENS AUTOMATICALLY WHEN INSTANTIATED
     at_instance.user_playlist_command.set_user_playlists(overwrite=True)
 
     # --------------------------- #
     # Open command to update PLAYLIST info in MongoDB
     logging.info('Refreshing AT Trove User Playlist')
+    # opening will pull playlist data automatically and save it to the PlaylistCommand instance 
+    #TODO: change this so it isn't automatic, bad for memory
     at_instance.open_playlist_commands()
-    # at_instance.user_playlist_command.get_user_playlists()
+    # at_instance.user_playlist_command.get_user_playlists() # THIS CURRENTLY HAPPENS AUTOMATICALLY WHEN INSTANTIATED
     at_instance.playlist_command.set_playlist(overwrite=True)
+
+    # --------------------------- #
+    # Open command to update TRACK info in MongoDB
+    logging.info('Refreshing AT Trove Track Data')
+    at_instance.open_track_commands()
+    # Check to see if list of tracks are available to reference
+    # if the playlist command opened without issues, the playlist data will be stored there
+    if at_instance.playlist_command.playlist_data:
+
+        # get set() of track IDs from the stored playlist data
+        total_track_list = at_instance.track_command.prepare_playlist_trackids(at_instance.playlist_command.playlist_data)
+        
+        # Call command to get tracks
+        # data saved to the track command instance (track_command.track_data)
+        at_instance.track_command.get_spotify_track_assets(total_track_list, access_token=at_instance.access_token)
+
+        # Write track data to MongoDB using data stored in the track command
+        at_instance.track_command.set_tracks(documents=at_instance.track_command.track_data, overwrite=True)
+    
         
     return redirect(url_for('spotify_api.user_spotify_analysis'))
         

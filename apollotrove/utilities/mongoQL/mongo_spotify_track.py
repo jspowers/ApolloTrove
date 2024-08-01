@@ -25,15 +25,27 @@ class MDBSpotifyTrackCollection(object):
         return track_data
         
 
-    def write_db_track(self, documents, documeent_key="id",overwrite=False):
-        for doc in documents:
-            mongo_set(
-                primary_key=documeent_key,
-                ref_id=doc[documeent_key],
-                insert_document=doc,
-                collection=self.track_collection,
-                overwrite=overwrite,
-            )
+    def write_db_track(self, documents, document_key="id",overwrite=False):
+        if len(documents) > 1:
+            for  batch in documents:
+                for i, doc in enumerate(batch):
+                    if i == 0: print(doc)
+                    mongo_set(
+                        primary_key=document_key,
+                        ref_id=doc[document_key],
+                        insert_document=doc,
+                        collection=self.track_collection,
+                        overwrite=overwrite,
+                    )
+        else: 
+            for doc in documents:
+                mongo_set(
+                    primary_key=document_key,
+                    ref_id=doc[document_key],
+                    insert_document=doc,
+                    collection=self.track_collection,
+                    overwrite=overwrite,
+                )
         return
     
     def remove_db_track(self, doc_keys, document_key = "id"):

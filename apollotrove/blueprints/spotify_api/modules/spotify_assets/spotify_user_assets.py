@@ -41,7 +41,7 @@ class SpotifyUserAssets():
         logging.info(f'Pulling User spotify playlists for {user_id} using {access_token}')
         while (next_get != None):
             r = requests.get(url_, headers=token_header).json()
-            for playlist in r['items']:
+            for playlist in r.get('items', []):
                 # user_playlist_list.append(playlist['name'])
                 # user_playlist_ids.append(playlist['id'])
                 user_playlist_meta.append(playlist)

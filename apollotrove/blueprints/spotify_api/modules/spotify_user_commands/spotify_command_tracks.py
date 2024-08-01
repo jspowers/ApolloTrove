@@ -9,6 +9,7 @@ from apollotrove.utilities.mongoQL.mongo_spotify_track import MDBSpotifyTrackCol
 class SpotifyCommandTracks(object):
     track_assets = None
     db_track = None
+    track_data = None
 
     def __init__(self):
         self.track_assets = SpotifyTrackAssets()
@@ -33,21 +34,24 @@ class SpotifyCommandTracks(object):
             track_data.append(r['tracks'])
             batch_iterator += 1
             logging.info(f"Track batch {batch_iterator}/{len(track_batch)} collected.")        
-        return track_data
+        self.track_data = track_data
+        return 
 
     # -------------------- #
     # - TRANSFORMATION METHODS - #
     @staticmethod
     def prepare_playlist_trackids(playlist_data):
-        tracks = []
+        tracks = set()
+        # TimeComp: O(n * m)
         for playlist in playlist_data:
             pl_len = len(playlist['tracks']['items'])
             pl_name = playlist['name']
             logging.info(f"Gathering IDs for {pl_len} tracks in '{pl_name}'")
             for track in playlist['tracks']['items']:
-                tracks.append(track['track']['id'])     
-        track_set = set(tracks)
-        tracks = list(track_set)
+                if track['track']['id'] != None:
+                    tracks.add(track['track']['id'])
+                else:
+                    logging.warning(f"Skipping song {track['track']['name']}: No ID found.")
         return tracks
 
     # -------------------- #
@@ -55,8 +59,8 @@ class SpotifyCommandTracks(object):
     def get_tracks(self, documents):
         return self.db_track.get_db_track(documents=documents)
     
-    def set_tracks(self, documents):
-        self.db_track.write_db_track(documents=documents)
+    def set_tracks(self, documents, overwrite=False):
+        self.db_track.write_db_track(documents=documents, overwrite=overwrite)
         return
     
     def delete_tracks(self,keys):
