@@ -1,4 +1,5 @@
 from datetime import datetime
+from .spotify_utilities import get_batch_spotify_track_audio_features
 import requests
 import logging
 
@@ -43,19 +44,3 @@ class SpotifyTrackAssets():
         result['request_ts'] = request_ts
         logging.info(f"API response status code: {r.status_code}")
         return result
-
-#     @staticmethod
-#     def get_spotify_track_features():
-#         tracks_string = ','.join(track_ids)
-#         token_header = {'Authorization': f'Bearer {access_token}'}
-#         url_ = f'https://api.spotify.com/v1/tracks?market=US&ids={tracks_string}'
-#         r = requests.get(url_, headers=token_header)
-#         logging.info(f"API response status code: {r.status_code}")
-#         return r.json()
-
-#     def get_spotify_tracks_features():
-        
-# https://api.spotify.com/v1/audio-features/{id}
-# https://api.spotify.com/v1/audio-features?ids=7ouMYWpwJ422jRcDASZB7P%2C4VqPOruhp5EdPBeR92t6lQ%2C2takcwOaAZWiXQijPHIx7B'
-
-

@@ -1,4 +1,4 @@
-from pymongo import ReturnDocument
+from pymongo import ReturnDocument, InsertOne, ReplaceOne
 from .pymongo_get_database import open_apollo_db
 import logging
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
@@ -41,7 +41,7 @@ def mongo_set(primary_key,ref_id,collection,insert_document,overwrite=False):
     mongo_record = collection.find_one({primary_key:ref_id})
     mongo_id = mongo_record[primary_key] if mongo_record != None else None
     if mongo_id == None: 
-        logging.info(f"Mongo ID ({mongo_id}) not found in collection. record will be created.")
+        logging.info(f"Mongo ID ({ref_id}) not found in collection. record will be created.")
     # Update (or insert) profile when overwrite is set to true
     # 1) Mongo record found and overwrite set to true OR if profile wasn't found
     if overwrite==True or mongo_id==None:
@@ -59,14 +59,43 @@ def mongo_set(primary_key,ref_id,collection,insert_document,overwrite=False):
             return
     # Log warning that user already exists and overwrite set to false
     elif overwrite==False and mongo_id!=None:
-        logging.warning(f"no update/insert made. record for '{mongo_id}' already exists.")
+        logging.warning(f"no update/insert made. record for '{mongo_id}' already exists and Overwrite == False.")
         return
     logging.info("Updating actions completed")
     return
 
 
-def mongo_set_many():
-    pass
+def mongo_set_many(
+        primary_key:str,
+        collection:str,
+        insert_documents: list[dict],
+        overwrite=False,
+    ) -> None:
+
+    logging.info(f"Command to bulk write to {collection}: {len(insert_documents)} records.")
+
+    # Create Requests bank
+    requests = []
+    
+    # if the requests are set to overwrite, instantiate ReplaceOne jobs
+    if overwrite:
+        for doc in insert_documents:
+            ref_id = doc[primary_key]
+            requests.append(
+                ReplaceOne(
+                    filter={primary_key:ref_id},
+                    replacement=doc,
+                    upsert=True,
+                    )
+                ) 
+            
+    # if no overwrite, only create InsertJobs
+    else: requests += [InsertOne(document=doc) for doc in insert_documents]
+    
+    result = collection.bulk_write(requests)
+    logging.info(f"Inserted Count: {result.inserted_count} // Deleted Count: {result.deleted_count} // Modified Count: {result.modified_count}")
+
+    return 
 
 
 def mongo_delete(primary_key, ref_id, collection):

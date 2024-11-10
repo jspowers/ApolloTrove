@@ -9,6 +9,9 @@ apollo_db.sqlite
 .env
 /venv
 
+# Sandbox and playground
+/_sandbox
+
 ##########   BOILERPLATE     ##########
 # Byte-compiled / optimized / DLL files
 __pycache__/

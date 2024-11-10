@@ -27,9 +27,12 @@ class MDBSpotifyTrackCollection(object):
 
     def write_db_track(self, documents, document_key="id",overwrite=False):
         if len(documents) > 1:
+
+            # SET UP BULK UPLOAD
+            
             for  batch in documents:
                 for i, doc in enumerate(batch):
-                    if i == 0: print(doc)
+                    if i == 0: logging.info('Beginning new batch.')
                     mongo_set(
                         primary_key=document_key,
                         ref_id=doc[document_key],

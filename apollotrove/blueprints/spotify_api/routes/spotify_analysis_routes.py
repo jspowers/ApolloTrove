@@ -9,7 +9,7 @@ from apollotrove.models.user_spotify_auth import UserSpotifyAuth
 from apollotrove.models.user_connected_accounts import UserConnectedAccounts
 from apollotrove.utilities.mongoQL.mongo_spotify_user import MDBSpotifyUserCollection
 from apollotrove.utilities.mongoQL.mongo_spotify_user_playlist import MDBSpotifyUserPlaylistCollection
-# from apollotrove.utilities.mongoQL.mongo_spotify_playlist import MDBSpotifyPlaylistCollection
+from apollotrove.utilities.mongoQL.mongo_spotify_playlist import MDBSpotifyPlaylistCollection
 # from apollotrove.utilities.mongoQL.mongo_spotify_track import MDBSpotifyTrackCollection
 
 
@@ -164,3 +164,35 @@ def user_spotify_analysis():
         user_playlist_refresh_ts = getattr(users_playlists, 'get', lambda key: [])('request_ts'),
         # users_playlists = getattr(users_playlists, 'get', lambda key: [])('items'),
     )
+
+# ----------------------------------- #
+# SPOTIFY PLAYLIST SUMMARY PAGE ROUTE:
+# 1) Get user data stored in MongoDB
+# 2) Render the template for Spotify User Page
+# ----------------------------------- #
+@spotify_api_bp.route('/spotify_user_playlists', methods=['GET'])
+@login_required
+def user_spotify_playlists():
+    
+    # --------------------------- #
+    # Get Spotify User ID for Playlist Search
+    spotify_user_id = get_user_spotify_id()
+
+    # --------------------------- #
+    # Query MongoDB to get list of playlist IDs
+    mongo_spot_user_playlists = MDBSpotifyUserPlaylistCollection(user_id = spotify_user_id)
+    users_playlists = mongo_spot_user_playlists.get_db_user_playlists()
+    playlist_ids = [playlist['id'] for playlist in users_playlists]
+
+    # Build analysis data model for Plotly that 
+    #   -   Feed the list of Playlist IDs into this action 
+    #   -   Each playlist should have levels of aggregations based on data
+    #       points from the track features page:
+    #       https://developer.spotify.com/documentation/web-api/reference/get-audio-features
+
+    return render_template(
+        'spotify_user_playlists.html',
+        playlists = users_playlists,
+    )
+
+    
