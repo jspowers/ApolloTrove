@@ -74,6 +74,16 @@ def mongo_set_many(
 
     logging.info(f"Command to bulk write to {collection}: {len(insert_documents)} records.")
 
+    # find records that already exist to split the population of records to be inserted
+    search_refs = [doc[primary_key] for doc in insert_documents]
+    doc_search = collection.find(
+        filter={primary_key:ref_id},
+        projection={primary_key: True},
+        )
+    
+    existing_docs = set([doc[primary_key] for doc in doc_search])
+    
+
     # Create Requests bank
     requests = []
     
@@ -90,6 +100,7 @@ def mongo_set_many(
                 ) 
             
     # if no overwrite, only create InsertJobs
+    
     else: requests += [InsertOne(document=doc) for doc in insert_documents]
     
     result = collection.bulk_write(requests)

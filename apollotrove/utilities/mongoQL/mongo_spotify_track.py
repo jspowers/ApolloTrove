@@ -1,4 +1,4 @@
-from .mongo_operators import (open_collection, mongo_get, mongo_set, mongo_delete)
+from .mongo_operators import (open_collection, mongo_get, mongo_set, mongo_set_many, mongo_delete)
 import logging
 logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
 
@@ -28,8 +28,13 @@ class MDBSpotifyTrackCollection(object):
     def write_db_track(self, documents, document_key="id",overwrite=False):
         if len(documents) > 1:
 
-            # SET UP BULK UPLOAD
-            
+            mongo_set_many(
+                primary_key=document_key,
+                collection=self.track_collection,
+                overwrite=False
+
+            )
+
             for  batch in documents:
                 for i, doc in enumerate(batch):
                     if i == 0: logging.info('Beginning new batch.')
