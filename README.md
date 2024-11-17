@@ -6,18 +6,7 @@ Currently in the early stages of development.
 - Flask_Login based authentication method
 - MongoDB document storage and Operators
 - Spotify Oauth2.0 API Connection
-- Front end UI for users
-
-## Planned enhancements
-- Optimizing spotify API calls
-- Additional data to pull from Spotify to create better analytics.
-
-# TODO List:
-- [ ] PRIORITY 1: BULK MONGODB WRITE
-
-- [ ] NARROW THE GET_PLAYLIST FUNCTION TO ONLY BRING IN SOME FIELDS
-- [ ] Managing orphaned playlists in MongoDB
-- [ ] Music facts prompted during load times in the front end UI
+- Front end UI 
 
 --- 
 
