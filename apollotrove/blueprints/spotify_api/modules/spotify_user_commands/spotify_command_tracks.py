@@ -1,6 +1,7 @@
 import logging
 from apollotrove.blueprints.spotify_api.modules.spotify_assets.spotify_track_assets import SpotifyTrackAssets
 from apollotrove.utilities.mongoQL.mongo_spotify_track import MDBSpotifyTrackCollection
+from apollotrove.utilities.py_utilities import array_flatten
 
 
 # ----------------------------- #
@@ -18,6 +19,11 @@ class SpotifyCommandTracks(object):
     # -------------------- #
     # - Spotify API METHODS - #
     def get_spotify_track_assets(self, track_ids, access_token):
+        """
+        Use the spotify API to get track details for a list of track_ids.
+        Results are returned in a list[list[dictionaries]] (not a typo - don't kill me). 
+        Each index of the list contains a batch of 50 tracks.
+        """
         #check if track already exists in mongo DB
         # skippable_tracks = [track_id for track_id in track_ids if self.get_tracks(track_id) != None]
         skippable_tracks = []
@@ -34,7 +40,9 @@ class SpotifyCommandTracks(object):
             track_data.append(r['tracks'])
             batch_iterator += 1
             logging.info(f"Track batch {batch_iterator}/{len(track_batch)} collected.")        
-        self.track_data = track_data
+        # Flatten the batched results
+        flat_track_data = list(array_flatten(track_data))
+        self.track_data = flat_track_data
         return 
 
     # -------------------- #
