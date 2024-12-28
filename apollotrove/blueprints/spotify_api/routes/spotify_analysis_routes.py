@@ -182,7 +182,8 @@ def user_spotify_playlists():
     # Query MongoDB to get list of playlist IDs
     mongo_spot_user_playlists = MDBSpotifyUserPlaylistCollection(user_id = spotify_user_id)
     users_playlists = mongo_spot_user_playlists.get_db_user_playlists()
-    playlist_ids = [playlist['id'] for playlist in users_playlists]
+    print(users_playlists['items'][0])
+    playlist_ids = [playlist['id'] for playlist in users_playlists['items']]
 
     # Build analysis data model for Plotly that 
     #   -   Feed the list of Playlist IDs into this action 
@@ -192,7 +193,7 @@ def user_spotify_playlists():
 
     return render_template(
         'spotify_user_playlists.html',
-        playlists = users_playlists,
+        users_playlists = users_playlists['items'],
     )
 
     
