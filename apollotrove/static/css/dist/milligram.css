@@ -43,12 +43,6 @@ blockquote *:last-child {
   margin-bottom: 0;
 }
 
-.force-center {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
 .button,
 button,
 input[type='button'],
@@ -307,7 +301,7 @@ input[type='radio'] {
 
 .container {
   margin: 0 auto;
-  max-width: 80.0rem;
+  max-width: 100.0rem;
   padding: 0 2.0rem;
   position: relative;
   width: 100%;

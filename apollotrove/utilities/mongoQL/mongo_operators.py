@@ -127,6 +127,7 @@ def mongo_set_many(
             if doc[primary_key] not in existing_docs
         ]
 
+    logging.info(f'Number of bulk write requests to make: {len(requests)}')
     result = collection.bulk_write(requests)
     logging.info(
         f"Inserted Count: {result.inserted_count} // Deleted Count: {result.deleted_count} // Modified Count: {result.modified_count}"

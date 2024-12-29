@@ -1,33 +1,24 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>AT - Spotify Analysis</title>
+<title>Spotify Trove - Playlist Data</title>
 {% endblock %}
+
 
 {% block content %}
 
 
-
-<!-- <section> -->
-<!-- <h4>Summary Statistics Charts</h4> -->
-<!-- <div class="charts">
-        <div class="chart">Chart 1 (Library Size)</div>
-        <div class="chart">Chart 2 (Playlist Count)</div>
-        <div class="chart">Chart 3 (Top 5 Artists)</div>
-        <div class="chart">Chart 4 (Top 5 Songs)</div>
-        <div class="chart">Chart 5 (Top Genre)</div>
-    </div> -->
-<!-- </section>
+<hr class="spotify-branding-nav">
 <section>
-    <h2>Recent Library Stats</h2>
-    <div class="recent-stats"> -->
-<!-- Recent library stats data here -->
-<!-- </div>
-</section> -->
-
-
+    <div>
+        <a class="button passive-nav" href="{{ url_for('spotify_api.user_spotify_analysis') }}">User Data</a>
+        <a class="button passive-nav" href="">Library</a>
+        <a class="button spotify-active-nav" href="{{ url_for('spotify_api.user_spotify_playlists') }}">Playlists</a>
+        <a class="button passive-nav" href="">Recent Trends</a>
+    </div>
+    <br>
+</section>
 <section>
-    <hr>
     <details>
         <summary>Playlists</summary>
         <p>{{users_playlists|length}} Playlists</p>

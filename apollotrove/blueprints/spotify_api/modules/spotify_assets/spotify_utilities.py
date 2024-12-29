@@ -42,4 +42,22 @@ def get_batch_spotify_track_audio_features(access_token: str, tracks: list[dict]
     return 
     
 
-
+track_field_filters =[
+    'album.album_type',
+    'album.id',
+    'album.name',
+    'album.type',
+    'album.total_tracks',
+    'album.release_date',
+    'album.release_date_precision',
+    'album.images',
+    'id',
+    'extermal_ids',
+    'explicit',
+    'name',
+    'popularity',
+    'track_number',
+    'duration_ms',
+    'artists.name',
+    'artists.id',
+]

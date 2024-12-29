@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<hr class="spotify-branding-nav">
+<section>
+    <div class="row">
+        <div class="column column-25 force-center"><a href="{{ url_for('spotify_api.user_spotify_analysis') }}"
+                class="button min-button spotify-active-nav">User Data</a></div>
+        <div class="column column-25 force-center"><a href="" class="button min-button passive-nav">Library</a></div>
+        <div class="column column-25 force-center"><a href="{{ url_for('spotify_api.user_spotify_playlists') }}" class="button min-button passive-nav">Playlists</a></div>
+        <div class="column column-25 force-center"><a href="" class="button min-button passive-nav">Recent Trends</a></div>
+    </div>
+    <br>
+</section>
+
+<section class="container">
+    {% block spot_content %}
+    {% endblock %}
+</section>
+
+{% endblock %}

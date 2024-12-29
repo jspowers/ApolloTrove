@@ -34,7 +34,7 @@ class MDBSpotifyTrackCollection(object):
                 primary_key=document_key,
                 collection=self.track_collection,
                 insert_documents=documents,
-                overwrite=False
+                overwrite=overwrite
             )
             
         else: 

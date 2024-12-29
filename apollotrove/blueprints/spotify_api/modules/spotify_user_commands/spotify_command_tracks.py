@@ -68,7 +68,8 @@ class SpotifyCommandTracks(object):
         return self.db_track.get_db_track(documents=documents)
     
     def set_tracks(self, documents, overwrite=False):
-        self.db_track.write_db_track(documents=documents, overwrite=overwrite)
+        # self.db_track.write_db_track(documents=documents, overwrite=overwrite)
+        self.db_track.write_db_track(documents=documents, overwrite=True)
         return
     
     def delete_tracks(self,keys):
